@@ -13,9 +13,17 @@ This project uses some R packages as bibliometrix, rworldmap and wordcloud. Besi
 
 ## Author & Contributor List
 
- - Cristiano Manhães de Oliveira <cristianomoliveira@gmail.com>
+ - Cristiano Manhães de Oliveira <cristianomoliveira@gmail.com>;
 
- - Patrick Jhullyan dos Santos Ribeiro Soares
+ - Patrick Jhullyan dos Santos Ribeiro Soares ;
+
+ - Gudelia Morales (UENF);
+
+ - Jose Arica Dsc (UENF);
+
+ - Italo Matias Dsc (UCAM); 
+
+ - Henrique da Hora (IFF)
 
 ---
 
