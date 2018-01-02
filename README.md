@@ -9,15 +9,16 @@ This project uses some R packages as bibliometrix, rworldmap and wordcloud. Besi
 
 ## Licencing Information: READ LICENCE
 ---
-Project source can be downloaded from src folder
----
 
 
 ## Author & Contributor List
 
-Cristiano Manhães de Oliveira
+ - Cristiano Manhães de Oliveira <cristianomoliveira@gmail.com>
 
-Patrick Jhullyan dos Santos Ribeiro Soares
+ - Patrick Jhullyan dos Santos Ribeiro Soares
 
+---
+
+Project source can be downloaded from src folder
 ---
 
