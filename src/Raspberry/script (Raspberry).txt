@@ -149,7 +149,8 @@ library(bibliometrix)
 
 #lendo arquivos com dados da pesquisa
 #para ler vários, caso mais de 2.000 e o arquivo deve bibTex
-dados = readFiles("/media/cristiano/892c22ef-2167-47e3-ba00-437ea3761bb1/Mestrado/28 - Scientometrics/dados/raspberry/29-12-17/scopus/scopus(29 artigos).bib")
+arquivo = file.choose()
+dados = readFiles(arquivo)
 
 
 #convertendo para um Data Frame com os artigos
