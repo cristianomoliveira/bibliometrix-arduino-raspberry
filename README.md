@@ -9,7 +9,7 @@ This project uses some R packages as bibliometrix, rworldmap and wordcloud. Besi
 
 ## Licencing Information: READ LICENCE
 ---
-Project source can be downloaded from https://github.com/cristianomoliveira/bibliometrix-arduino-raspberry/src/Raspberry
+Project source can be downloaded from https://github.com/cristianomoliveira/bibliometrix-arduino-raspberry/tree/master/src/RaspberryRaspberry
 ---
 
 
