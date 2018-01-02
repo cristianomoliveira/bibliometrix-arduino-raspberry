@@ -14,6 +14,10 @@ Project source can be downloaded from src folder
 
 
 ## Author & Contributor List
----
 
 Cristiano Manhães de Oliveira
+
+Patrick Jhullyan dos Santos Ribeiro Soares
+
+---
+
