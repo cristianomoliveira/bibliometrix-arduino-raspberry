@@ -1,0 +1,537 @@
+http://pedrounb.blogspot.com.br/2014/12/text-mining-com-kernels-string-no-r.html
+
+http://stackoverflow.com/questions/24191728/documenttermmatrix-error-on-corpus-argument
+
+https://www.researchgate.net/profile/Paulo_Carvalho_Jr/publication/257920671_Avaliao_do_programa_de_residncia_multiprofissional_em_sade_da_famlia_uma_anlise_qualitativa_atravs_de_duas_tcnicas/links/00b7d526171357e244000000.pdf
+
+http://www.abed.org.br/congresso2011/cd/233.pdf
+
+
+
+library(wordcloud)
+nuvem = read.csv(file.choose(), header =T, sep=";")
+head(nuvem)
+
+
+wordcloud(words = nuvem$Palavra, freq = nuvem$Frequencia)
+
+
+
+
+wordcloud(words = nuvem$Palavra, freq = nuvem$Frequencia,min.freq = 1, random.order = TRUE,
+colors=brewer.pal(8,"Dark2"), use.r.layout=TRUE, rot.per= 0.5)
+
+
+
+
+
+------------------------------------------------------------------------------
+FREQUENCIA DAS PALAVRAS
+
+
+texto <- scan(file.choose(), what="char", sep="\n", encoding = "UTF-8")
+texto <- tolower(texto)
+
+lista_palavras <- strsplit(texto, "\\W+")
+vetor_palavras <- unlist(lista_palavras)
+
+frequencia_palavras <- table(vetor_palavras)
+frequencia_ordenada_palavras <- sort(frequencia_palavras, decreasing=TRUE)
+
+palavras <- paste(names(frequencia_ordenada_palavras), frequencia_ordenada_palavras, sep=";")
+
+cat("Palavra;Frequencia", palavras, file=file.choose(), sep="\n") 
+
+FONTE: https://pt.stackoverflow.com/questions/51448/saber-a-frequ%C3%AAncia-de-palavras
+
+
+###############################
+
+palavras = resultado$DE
+
+
+write.csv(palavras,file=file.choose())
+
+
+library(wordcloud)
+nuvem = read.csv(file.choose(), header =T, sep=",")
+head(nuvem)
+
+
+  X                Tab Freq
+1 1               RFID  170
+2 2         HEALTHCARE   53
+3 5           SECURITY   11
+4 6        HEALTH CARE   10
+5 7 INTERNET OF THINGS   10
+6 8    RFID TECHNOLOGY   10
+
+
+
+wordcloud(words = nuvem$Tab, freq = nuvem$Freq)
+
+jpeg(filename = "/media/cristiano/892c22ef-2167-47e3-ba00-437ea3761bb1/Mestrado/20 - RFID Medicina (Biomedica)/graficos/wordcloud2.jpg")
+wordcloud(words = nuvem$Tab, freq = nuvem$Freq,min.freq = 2, random.order = TRUE,
+colors=brewer.pal(8,"Dark2"), use.r.layout=TRUE, rot.per= 0.5)
+
+
+dev.off()
+
+##############################
+
+--------------------------------------------------
+MAPA
+
+library(rworldmap)
+
+
+dados = read.csv(file.choose(), header =T, sep=";")
+
+d <- data.frame(country=dados$Pais,value=dados$Citações)
+
+n <- joinCountryData2Map(d, joinCode="NAME", nameJoinColumn="country")
+
+mapCountryData(n, nameColumnToPlot="value", mapTitle="World", catMethod="categorical")
+
+#######################################################
+
+dados = read.csv(file.choose(), header =T, sep=";")
+
+
+d <- data.frame(country=dados$País,value=dados$Artigos)
+
+n <- joinCountryData2Map(d, joinCode="NAME", nameJoinColumn="country")
+
+mapCountryData(n, nameColumnToPlot="value", mapTitle="World", catMethod="categorical")
+
+
+
+
+
+mapCountryData(n, nameColumnToPlot="value", mapTitle="World", catMethod="categorical", colourPalette="terrain")
+
+OU
+
+mapCountryData(n, nameColumnToPlot="value", mapTitle="World", catMethod="fixedWidth", colourPalette="terrain")
+
+
+
+//escolhendo paleta de cores
+
+library(RColorBrewer)
+colourPalette <- RColorBrewer::brewer.pal(5, 'RdPu')
+brewerList <- c("Greens","Greys","Oranges","OrRd","PuBuGn","Purples","YlGn","YlGnBu","YlOrBr","YlOrRd")
+colourPalette <- brewer.pal(7,brewerList[1])
+mapCountryData(n, nameColumnToPlot="value", mapTitle="World", colourPalette=colourPalette, catMethod="categorical")
+
+
+
+
+
+
+
+
+http://blog.xavier-fim.net/2012/10/using-r-to-draw-maps-on-country-data/
+
+
+####################################
+USANDO BIBLIOMETRIX
+
+
+Fonte:
+http://www.bibliometrix.org/
+http://htmlpreview.github.io/?https://github.com/massimoaria/bibliometrix/master/vignettes/bibliometrix-vignette.html
+####################################
+
+
+#importando a bilioteca
+library(bibliometrix)
+
+#lendo arquivos com dados da pesquisa
+#para ler vários, caso mais de 2.000 e o arquivo deve bibTex
+dados = readFiles("/media/cristiano/892c22ef-2167-47e3-ba00-437ea3761bb1/Mestrado/28 - Scientometrics/dados/raspberry/29-12-17/scopus/scopus(29 artigos).bib")
+
+
+#convertendo para um Data Frame com os artigos
+#M <- convert2df(D, dbsource = "isi", format = "bibtex")
+
+artigos = convert2df(dados, dbsource = "scopus", format = "bibtex")
+
+# Analisando os dados
+
+resultado = biblioAnalysis(artigos, sep = ";")
+
+#resumo dos resultados
+
+resumo = summary(object = resultado, k = 10, pause = TRUE)
+
+
+out <- capture.output(resumo)
+cat("Resumo", out, file=file.choose(), sep="\n", append=TRUE)
+
+#########################################################
+
+
+
+
+##########################################################
+#PLOTANDO PUBLICAÇÕES POR ANO
+
+dados = read.csv(file.choose(), header =T, sep=";")
+jpeg(filename = "/media/cristiano/892c22ef-2167-47e3-ba00-437ea3761bb1/Mestrado/20 - RFID Medicina (Biomedica)/graficos/pubAno.jpg")
+barplot(public$N..Artigos, main="Publicações por Ano", names.arg = public$Ano, col = "blue")
+dev.off()
+
+##########################################################
+
+artPorAno <- c(1,3,3,9,13)
+anos <- c(2009,2014,2015,2016,2017)
+png(file.choose())
+barplot(artPorAno,names.arg = anos,xlab = "Years",ylab = "Papers by Year",col = "blue", main = "Raspberry - Papers by Year")
+dev.off()
+
+
+
+
+
+
+
+##########################################################
+
+
+//Plotando os resultados
+plot(x = resultado, k = 10, pause = TRUE)
+
+//mais citados
+//CR <- citations(M, field = "article", sep = ".  ")
+//CR$Cited[1:10]
+citados <- citations(artigos, field = "article", sep = ".  ")
+citados$Cited[1:10]
+
+
+//para autores
+citados <- citations(artigos, field = "author", sep = ".  ")
+citados$Cited[1:10]
+
+
+
+################################
+ ANGELES, R FINKENZELLER, K        KWOK, SK         LEE, WB  MANDVIWALLA, M         ABAD, E      AGARWAL, S         ASIF, Z        CHEN, WH 
+              5               4               4               4               4               3               3               3               3 
+     CHUANG, YW 
+              3 
+
+################################
+
+//mais citados locais
+
+citados <- localCitations(artigos, resultado, sep = ".  ")
+citados$Cited[1:10]
+
+
+
+
+Autores dominantes
+
+
+dominantes <- dominance(resultado, k = 10)
+dominantes
+
+##################################
+
+            Dominance Factor Multi Authored First Authored Rank by Articles Rank by DF
+CATARINUCCI,L        1.0000000              5              5                1          1
+SEIDMAN,SJ           1.0000000              4              4                4          2
+JONES,EC             1.0000000              3              3                8          3
+ALHARBE,N            0.6666667              3              2                6          4
+KASSAL,P             0.6666667              3              2                9          5
+KUMAR,S              0.6666667              3              2               10          6
+STEINBERG,MD         0.5000000              4              2                5          7
+AMENDOLA,S           0.3333333              3              1                7          8
+BOOTH,P              0.2500000              4              1                2          9
+NGAI,EWT             0.2500000              4              1                3         10
+
+################################
+
+//Calculando o H-index dos 10 autores mais produtivos
+
+
+autores=gsub(","," ",names(resultado$Authors)[1:10])
+indices <- Hindex(artigos, autores, sep = ";",years=50)
+indices$H
+
+################################
+
+          Author h_index g_index   m_index  TC NP
+1  CATARINUCCI L       5       5 0.5000000 180  5
+2    TARRICONE L       5       5 0.5000000 180  5
+3     BJRNINEN T       4       4 1.0000000  89  4
+4        BOOTH P       2       2 0.1666667   6  4
+5      COLELLA R       4       4 0.4000000 108  4
+6             NA      11      22 0.8461538 494 39
+7       NGAI EWT       4       4 0.3333333 203  4
+8      PATRONO L       4       4 0.6666667 131  4
+9     SEIDMAN SJ       2       3 0.4000000  12  4
+10  STEINBERG MD       3       4 0.7500000  48  4
+
+###############################
+
+
+//Calculando a lei de Lotka
+
+L <- lotka(resultado)
+
+
+//produtividade por autor. Distribuição empírica
+L$AuthorProd
+
+##############################
+
+N.Articles N.Authors         Freq
+ N.Articles N.Authors       Freq
+1          1       792 0.86937431
+2          2        94 0.10318332
+3          3        13 0.01427003
+4          4        10 0.01097695
+5          5         2 0.00219539
+
+#############################
+
+
+
+
+//coefiente beta estimado
+L$Beta
+
+#########################
+[1] 3.584504
+#########################
+
+
+//Constante
+L$C
+
+#########################
+[1] 0.9736744
+#########################
+
+
+//Goodness of fit
+
+L$R2
+
+#########################
+[1] 0.9768523
+#########################
+
+
+//P-value of K-S two sample test
+
+L$p.value
+
+#########################
+[1] 0.3291164
+#########################
+
+
+// Distribuição observada
+
+Observed=L$AuthorProd[,3]
+
+
+// Distribuição teórica com Beta = 2
+
+Theoretical=10^(log10(L$C)-2*log10(L$AuthorProd[,1]))
+
+plot(L$AuthorProd[,1],Theoretical,type="l",col="red",ylim=c(0, 1), xlab="Artigos",ylab="Freq. de Autores",main="Produtividade Científica")
+lines(L$AuthorProd[,1],Observed,col="blue")
+legend(x="topright",c("Teórico (B=2)","Observado"),col=c("red","blue"),lty = c(1,1,1),cex=0.6,bty="n")
+
+
+
+//ANÁLISE DE REDES
+
+
+A <- cocMatrix(artigos, Field = "SO", sep = ";")
+
+//Gerando os sourcers mais relevantes
+
+sort(Matrix::colSums(A), decreasing = TRUE)[1:5]
+
+
+######################################################
+
+                                   JOURNAL OF MEDICAL SYSTEMS                                      DECISION SUPPORT SYSTEMS 
+                                                           20                                                             6 
+INTERNATIONAL JOURNAL OF HEALTHCARE TECHNOLOGY AND MANAGEMENT                              WIRELESS PERSONAL COMMUNICATIONS 
+                                                            5                                                             4 
+         INTERNATIONAL JOURNAL OF DISTRIBUTED SENSOR NETWORKS 
+                                                            4 
+
+#####################################################
+
+
+
+//REDE DE CITAÇÃO
+
+A <- cocMatrix(artigos, Field = "CR", sep = ".  ")
+sort(Matrix::colSums(A), decreasing = TRUE)[1:5]
+
+######################################################
+ANGELES R. RFID TECHNOLOGIES: SUPPLY-CHAIN APPLICATIONS AND IMPLEMENTATION ISSUES (2005) 
+                                                                                                                       4 
+                                                                                                                  (2013) 
+                                                                                                                       3 
+                 ASIF Z. MANDVIWALLA M. INTEGRATING THE SUPPLY CHAIN WITH RFID: A TECHNICAL AND BUSINESS ANALYSIS (2005) 
+                                                                                                                       3 
+AGARWAL S. JOSHI A. FININ T. YESHA Y. GANOUS T. A PERVASIVE COMPUTING SYSTEM FOR THE OPERATING ROOM OF THE FUTURE (2007) 
+                                                                                                                       3 
+                                                                                SHONIREGUN C.A. DUBE K. MTENZI F. (2010) 
+                                                                                                                       2 
+
+######################################################
+
+
+//REDE DE AUTORES
+
+A <- cocMatrix(artigos, Field = "AU", sep = ".  ")
+sort(Matrix::colSums(A), decreasing = TRUE)[1:5]
+
+######################################################
+                             
+                              NA                           KIM JT BENSSALAH M,DJEDDOU M,DROUICHE K     PREZ MM,GONZLEZ GV,DAFONTE C 
+                               4                                3                                2                                2 
+       CHAN H-L,CHOI T-M,HUI C-L 
+                               2 
+
+
+
+######################################################
+
+
+//REDE DE PAISES
+
+M <- metaTagExtraction(artigos, Field = "AU_CO", sep = ";")
+A <- cocMatrix(M, Field = "AU_CO", sep = ";")
+sort(Matrix::colSums(A), decreasing = TRUE)[1:5]
+
+######################################################
+UNITED STATES        TAIWAN         ITALY         KOREA         CHINA 
+           75            31            22            17            15 
+######################################################
+
+
+//REDE DE PALAVRAS CHAVE
+
+A <- cocMatrix(artigos, Field = "DE", sep = ".  ")
+sort(Matrix::colSums(A), decreasing = TRUE)[1:5]
+
+######################################################
+                                  RFID                            HEALTHCARE        RADIO FREQUENCY IDENTIFICATION RADIO FREQUENCY IDENTIFICATION (RFID) 
+                                  120                                    53                                    33                                    17 
+                             SECURITY 
+                                   11 
+#####################################################
+
+
+
+NetMatrix <- biblioNetwork(artigos, analysis = "coupling", network = "authors", sep = ";")
+
+// calculate jaccard similarity coefficient
+S <- normalizeSimilarity(NetMatrix, type="jaccard")
+
+# plot authors' similarity (first 20 authors)
+net=networkPlot(S, n = 20, Title = "Acoplamento de Autores", type = "fruchterman", size=FALSE,remove.multiple=TRUE)
+
+
+//Rede de co-citação
+
+NetMatrix <- biblioNetwork(artigos, analysis = "co-citation", network = "references", sep = ".  ")
+
+// calculate jaccard similarity coefficient
+S <- normalizeSimilarity(NetMatrix, type="jaccard")
+
+# plot authors' similarity (first 20 authors)
+net=networkPlot(S, n = 20, Title = "Rede de co-citação", type = "fruchterman", size=FALSE,remove.multiple=TRUE)
+
+
+
+//Rede de colaboração entre autores
+
+NetMatrix <- biblioNetwork(artigos, analysis = "collaboration", network = "authors", sep = ";")
+
+// calculate jaccard similarity coefficient
+S <- normalizeSimilarity(NetMatrix, type="jaccard")
+
+# plot authors' similarity (first 20 authors)
+net=networkPlot(S, n = 20, Title = "Rede de colaboração entre Autores", type = "fruchterman", size=FALSE,remove.multiple=TRUE)
+
+
+//Rede de colaboração entre países
+
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries", sep = ";")
+
+// calculate jaccard similarity coefficient
+S <- normalizeSimilarity(NetMatrix, type="jaccard")
+
+# plot authors' similarity (first 20 authors)
+net=networkPlot(S, n = 20, Title = "Rede de colaboração entre Países", type = "fruchterman", size=FALSE,remove.multiple=TRUE)
+
+
+
+//COLABORAÇÃO ENTRE PAÍSES
+
+M <- metaTagExtraction(artigos, Field = "AU_CO", sep = ";")
+NetMatrix <- biblioNetwork(M, analysis = "collaboration", network = "countries", sep = ";")
+net=networkPlot(NetMatrix, n = 20, Title = "Colaboração entre Países", type = "circle", size=TRUE, remove.multiple=FALSE)
+
+
+// REDE DE CO-CITAÇÃO
+
+NetMatrix <- biblioNetwork(artigos, analysis = "co-citation", network = "references", sep = ".  ")
+
+# Plot the network
+net=networkPlot(NetMatrix, n = 15, Title = "Co-Citation Network", type = "fruchterman", size=T, remove.multiple=FALSE)
+
+
+//REDE DE PALVRAS CHAVE
+
+# Create keyword co-occurrencies network
+
+NetMatrix <- biblioNetwork(artigos, analysis = "co-occurrences", network = "keywords", sep = ";")
+
+# Plot the network
+net=networkPlot(NetMatrix, n = 20, Title = "Palavras Chave", type = "kamada", size=T)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+net=networkPlot(NetMatrix, n = 20, Title = "Keyword Co-occurrences", type = "vosviewer", size=T, vos.path = "/home/cristiano/instalar/VOSviewer_1.6.5_jar")
+
+
+COM GEPHI
+
+https://gephi.wordpress.com/2013/02/12/rgexf-an-r-library-to-work-with-gexf-graph-files/
+
+http://www.vesnam.com/Rblog/viznets2/
+
+
+
+
+
+
+
+
+
+
+
